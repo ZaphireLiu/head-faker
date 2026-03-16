@@ -70,6 +70,32 @@
             font-weight: 500;
         }
 
+        .reset-button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .reset-button:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .reset-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+        }
+
         .control-panel {
             background: rgba(30, 30, 46, 0.8);
             border-radius: 15px;
@@ -267,6 +293,7 @@
         </header>
 
         <main class="control-panel">
+            <button class="reset-button" onclick="controller.resetAll()">🔄 复位所有轴</button>
             <!-- X轴控制 -->
             <div class="slider-container" data-axis="x">
                 <div class="slider-header">
@@ -746,6 +773,16 @@
                 }
 
                 statusText.textContent = message;
+            }
+
+            resetAll() {
+                // 将所有轴的值重置为0
+                for (const axis in this.axes) {
+                    this.axes[axis].value = 0;
+                }
+                this.updateUI();
+                this.sendData();
+                console.log('所有轴已复位到0');
             }
         }
 
